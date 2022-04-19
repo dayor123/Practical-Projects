@@ -1,0 +1,6 @@
+# terrform local Dir
+.terraform/*
+
+# terraform state
+*.tfstate
+*.tfstate.*
