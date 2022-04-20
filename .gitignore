@@ -4,3 +4,6 @@
 # terraform state
 *.tfstate
 *.tfstate.*
+
+# terrafor variabled
+*.tfvars
