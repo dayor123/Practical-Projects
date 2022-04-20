@@ -13,6 +13,19 @@ variable "access_key" {
 variable "secret_key" {
   description = "secret key"
 }
+variable vpc_cidr_block {
+  description = "VPC cidr block"
+}
+variable "subnet_cidr_block" {
+  description = "subnet cidr block"
+}
+variable "avail_zone" {
+  description = "availability zone"
+}
+variable "env_prefix" {
+  description = "environment"
+}
+
 
 provider "aws" {
     region = "us-east-1"
@@ -20,12 +33,18 @@ provider "aws" {
     secret_key = var.secret_key
 }
 # create a VPC 
-resource "aws_vpc" "dev-vpc" {
-  cidr_block = "10.0.0.0/16"
+resource "aws_vpc" "myapp-vpc" {
+  cidr_block = var.vpc_cidr_block
+  tags = {
+    name: "${var.env_prefix}-vpc"
+  }
 }
 # Subnet 
-resource "aws_subnet" "dev-subnet-1" {
-  vpc_id     = aws_vpc.dev-vpc.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone ="us-east-1a"
+resource "aws_subnet" "myapp-subnet-1" {
+  vpc_id     = aws_vpc.myapp-vpc.id
+  cidr_block = var.subnet_cidr_block
+  availability_zone = var.avail_zone
+   tags = {
+    name: "${var.env_prefix}-subnet-1"
+  }
 }
