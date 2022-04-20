@@ -7,10 +7,17 @@ terraform {
   }
 }
 
+variable "access_key" {
+  description = "access key"
+}
+variable "secret_key" {
+  description = "secret key"
+}
+
 provider "aws" {
     region = "us-east-1"
-    access_key = "AKIAVY6M54F565SRM3CR"
-    secret_key = "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"
+    access_key = var.access_key
+    secret_key = var.secret_key
 }
 # create a VPC 
 resource "aws_vpc" "dev-vpc" {
